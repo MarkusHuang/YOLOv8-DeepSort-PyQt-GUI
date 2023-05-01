@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="images">
+    <file>icons/icon.png</file>
+    <file>icons/button-on.png</file>
+    <file>icons/button-off.png</file>
+    <file>icons/roll_down.png</file>
+    <file>icons/camera_on.png</file>
+    <file>icons/video.png</file>
+    <file>icons/botton_down.png</file>
+    <file>icons/point.png</file>
+    <file>icons/run.png</file>
+    <file>icons/pause.png</file>
+    <file>icons/stop.png</file>
+  </qresource>
+</RCC>
