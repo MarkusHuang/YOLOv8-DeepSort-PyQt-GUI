@@ -145,7 +145,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QRadioButton::disabled{\n"
-"background-color:  #bf513b;\n"
+"color: rgb(0, 0, 0);\n"
 "}")
         self.radioButton_pose.setObjectName("radioButton_pose")
         self.verticalLayout_4.addWidget(self.radioButton_pose)
@@ -184,7 +184,6 @@ class Ui_MainWindow(object):
 "\n"
 "QComboBox::disabled{\n"
 "color: rgb(0, 0, 0);\n"
-"    background-color: rgb(0, 0, 0);\n"
 "}\n"
 "")
         self.comboBox_model.setCurrentText("YOLOv8n")
@@ -245,7 +244,7 @@ class Ui_MainWindow(object):
 "                     background-color:  #bf513b;}\n"
 "\n"
 "QPushButton::disabled{\n"
-"                     image: url(:/images/icons/video.png);\n"
+"                     image: url(:/images/icons/video_off.png);\n"
 "                     font-size: 14px;\n"
 "                     font-weight: bold;\n"
 "                     color:rgb(200,200,200);\n"
@@ -257,8 +256,7 @@ class Ui_MainWindow(object):
 "                     border-style: solid;\n"
 "                     border-width: 0px;\n"
 "                     border-color: rgba(255, 255, 255, 255);\n"
-"                     border-radius: 3px;\n"
-"                     background-color:  #bf513b;}\n"
+"                     border-radius: 3px;}\n"
 "QPushButton::hover {\n"
 "border-style: solid;\n"
 "border-width: 0px;\n"
@@ -307,6 +305,7 @@ class Ui_MainWindow(object):
 "                     background-color:  #bf513b;}\n"
 "\n"
 "QPushButton::disabled{\n"
+"                     image: url(:/images/icons/camera_off.png);\n"
 "                     font-size: 14px;\n"
 "                     font-weight: bold;\n"
 "                     color:rgb(200,200,200);\n"
@@ -318,8 +317,7 @@ class Ui_MainWindow(object):
 "                     border-style: solid;\n"
 "                     border-width: 0px;\n"
 "                     border-color: rgba(255, 255, 255, 255);\n"
-"                     border-radius: 3px;\n"
-"                     background-color:  #bf513b;}\n"
+"                     border-radius: 3px;}\n"
 "QPushButton::hover {\n"
 "border-style: solid;\n"
 "border-width: 0px;\n"

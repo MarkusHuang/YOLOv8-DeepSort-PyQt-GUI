@@ -180,7 +180,7 @@ QRadioButton::indicator:checked {
 }
 
 QRadioButton::disabled{
-background-color:  #bf513b;
+color: rgb(0, 0, 0);
 }</string>
                </property>
                <property name="text">
@@ -233,7 +233,6 @@ border-image: url(:/images/icons/roll_down.png);
 
 QComboBox::disabled{
 color: rgb(0, 0, 0);
-	background-color: rgb(0, 0, 0);
 }
 </string>
                </property>
@@ -326,7 +325,7 @@ QPushButton::pressed{
                      background-color:  #bf513b;}
 
 QPushButton::disabled{
-                     image: url(:/images/icons/video.png);
+                     image: url(:/images/icons/video_off.png);
                      font-size: 14px;
                      font-weight: bold;
                      color:rgb(200,200,200);
@@ -338,8 +337,7 @@ QPushButton::disabled{
                      border-style: solid;
                      border-width: 0px;
                      border-color: rgba(255, 255, 255, 255);
-                     border-radius: 3px;
-                     background-color:  #bf513b;}
+                     border-radius: 3px;}
 QPushButton::hover {
 border-style: solid;
 border-width: 0px;
@@ -394,6 +392,7 @@ QPushButton::pressed{
                      background-color:  #bf513b;}
 
 QPushButton::disabled{
+                     image: url(:/images/icons/camera_off.png);
                      font-size: 14px;
                      font-weight: bold;
                      color:rgb(200,200,200);
@@ -405,8 +404,7 @@ QPushButton::disabled{
                      border-style: solid;
                      border-width: 0px;
                      border-color: rgba(255, 255, 255, 255);
-                     border-radius: 3px;
-                     background-color:  #bf513b;}
+                     border-radius: 3px;}
 QPushButton::hover {
 border-style: solid;
 border-width: 0px;
