@@ -2,7 +2,7 @@ from src.qt.stream.video_capture import CameraCaptureThread
 from src.qt.stream.visualize import VideoVisualizationThread
 from src.qt.stream.ai_worker import AiWorkerThread
 from src.ui.main_window import Ui_MainWindow
-from src.qt.video.video_worker import YoloThread
+from src.qt.video.video_worker import FileProcessThread
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import sys
@@ -16,7 +16,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ai_thread = AiWorkerThread()
         self.camera_thread = CameraCaptureThread()
         self.display_thread = VideoVisualizationThread()
-        self.file_process_thread = YoloThread()
+        self.file_process_thread = FileProcessThread()
 
         self.conf_thr = 0.3
         self.iou_thr = 0.45
@@ -110,9 +110,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.horizontalSlider_interval.setDisabled(False)
             self.doubleSpinBox_iou.setDisabled(False)
             self.horizontalSlider_iou.setDisabled(False)
+            self.doubleSpinBox_interval.setDisabled(False)
+            self.horizontalSlider_interval.setDisabled(False)
         elif work_state == "processing_on_camera":
             self.pushButton_play.click
-
             self.radioButton_det.setDisabled(True)
             self.radioButton_pose.setDisabled(True)
             self.radioButton_seg.setDisabled(True)
@@ -127,6 +128,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.horizontalSlider_interval.setDisabled(False)
             self.doubleSpinBox_iou.setDisabled(False)
             self.horizontalSlider_iou.setDisabled(False)
+            self.doubleSpinBox_interval.setDisabled(True)
+            self.horizontalSlider_interval.setDisabled(True)
         elif work_state == "processing_on_file":
             self.radioButton_det.setDisabled(True)
             self.radioButton_pose.setDisabled(True)
@@ -142,6 +145,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.horizontalSlider_interval.setDisabled(False)
             self.doubleSpinBox_iou.setDisabled(False)
             self.horizontalSlider_iou.setDisabled(False)
+            self.doubleSpinBox_interval.setDisabled(False)
+            self.horizontalSlider_interval.setDisabled(False)
     
     def process_camera(self):
         self.ai_thread.set_start_config(
@@ -192,12 +197,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def update_display_frame(self, showImage):
         self.label_display.setPixmap(QtGui.QPixmap.fromImage(showImage))
     
-    def clean_screen(self):
-        self.label_display.clear()
-        blank_img = np.zeros((self.label_display.height(),self.label_display.width(),3))
-        show_image = QtGui.QImage(blank_img.data, blank_img.shape[1], blank_img.shape[0], QtGui.QImage.Format_RGBA8888)
-        self.update_display_frame(show_image)
-
     def clean_table(self):
         while (self.tableWidget_results.rowCount() > 0):
             self.tableWidget_results.removeRow(0)
@@ -215,7 +214,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 item = QtWidgets.QTableWidgetItem(str(each_item[j]))
                 item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
                 self.tableWidget_results.setItem(row, j, item)
-    
 
 
 if __name__ == '__main__':

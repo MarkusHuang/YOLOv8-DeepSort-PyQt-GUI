@@ -11,15 +11,15 @@ import numpy as np
 from PyQt5.QtGui import QImage
 
 
-class YoloThread(QThread):
+class FileProcessThread(QThread):
     send_thread_start_finish_flag = pyqtSignal(str)
     send_video_info = pyqtSignal(dict)
     send_ai_output = pyqtSignal(list)
     send_display_frame = pyqtSignal(QImage)
     send_play_progress = pyqtSignal(int)
     def __init__(self):
-        super(YoloThread, self).__init__()
-        self.thread_name = "YoloThread"
+        super(FileProcessThread, self).__init__()
+        self.thread_name = "FileProcessThread"
         self.threadFlag = False
     
     def set_start_config(self, video_path, ai_task, screen_size, model_name="yolov8n", confidence_threshold=0.35, iou_threshold=0.45, frame_interval=0):
@@ -125,8 +125,8 @@ class YoloThread(QThread):
         if media_fmt == "video":
             blank_image = np.zeros((self.ih, self.iw, 3))
             blank_image = cv.cvtColor(blank_image.astype('uint8'), cv.COLOR_BGR2RGBA)
-            showImage = QImage(blank_image.data, blank_image.shape[1], blank_image.shape[0], QImage.Format_RGBA8888)
-            self.send_display_frame.emit(showImage)
+            show_image = QImage(blank_image.data, blank_image.shape[1], blank_image.shape[0], QImage.Format_RGBA8888)
+            self.send_display_frame.emit(show_image)
             self.send_ai_output.emit([])
         self.send_thread_start_finish_flag.emit("waiting_for_setting")
     

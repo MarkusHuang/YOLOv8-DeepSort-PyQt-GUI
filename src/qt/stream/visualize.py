@@ -40,15 +40,15 @@ class VideoVisualizationThread(QThread):
             frame_id, frame = self.frame_buffer.get()
             if frame_id is not None:
                 frame = draw_results(frame, self.ai_output)
-                showImage = self.convert_cv_qt(frame, self.ih, self.iw)
-                self.send_displayable_frame.emit(showImage)
+                show_image = self.convert_cv_qt(frame, self.ih, self.iw)
+                self.send_displayable_frame.emit(show_image)
                 self.send_ai_output.emit(self.ai_output)
             else:
                 break
         blank_image = np.zeros((self.ih, self.iw, 3))
         blank_image = cv.cvtColor(blank_image.astype('uint8'), cv.COLOR_BGR2RGBA)
-        showImage = QImage(blank_image.data, blank_image.shape[1], blank_image.shape[0], QImage.Format_RGBA8888)
-        self.send_displayable_frame.emit(showImage)
+        show_image = QImage(blank_image.data, blank_image.shape[1], blank_image.shape[0], QImage.Format_RGBA8888)
+        self.send_displayable_frame.emit(show_image)
         self.send_ai_output.emit([])
         self.send_thread_start_stop_flag.emit("waiting_for_setting")
 
