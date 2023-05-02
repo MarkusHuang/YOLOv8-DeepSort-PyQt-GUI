@@ -9,6 +9,7 @@ __pycache__/
 # model weights
 *.onnx
 *.pth
+*.pt
 
 # Distribution / packaging
 .Python
