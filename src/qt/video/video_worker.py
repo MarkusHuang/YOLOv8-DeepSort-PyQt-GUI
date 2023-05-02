@@ -54,21 +54,21 @@ class FileProcessThread(QThread):
         if self.ai_task == "object_detection":
             self.detector = YoloDetector()
             self.detector.init(
-                model_path=os.path.join(ROOT, f"src/models/detection/weights/{self.model_name}/{self.model_name}.onnx"),
-                class_txt_path=os.path.join(ROOT, "src/models/detection/weights/classes.txt"),
+                model_path=os.path.join(ROOT, f"weights/detection/{self.model_name}.onnx"),
+                class_txt_path=os.path.join(ROOT, "weights/classes.txt"),
                 confidence_threshold=self.confi_thr,
                 iou_threshold=self.iou_thr)
         elif self.ai_task == "pose_detection":
             self.pose_detector = PoseDetector()
             self.pose_detector.init(
-                model_path=os.path.join(ROOT, f"src/models/pose/weights/{self.model_name}/{self.model_name}-pose.onnx"),
+                model_path=os.path.join(ROOT, f"weights/pose/{self.model_name}-pose.onnx"),
                 confidence_threshold=self.confi_thr,
                 iou_threshold=self.iou_thr)
         elif self.ai_task == "segmentation":
             self.seg_detector = YOLOSeg()
             self.seg_detector.init(
-                model_path=os.path.join(ROOT, f"src/models/segmentation/weights/{self.model_name}/{self.model_name}-seg.onnx"),
-                class_txt_path=os.path.join(ROOT, "src/models/segmentation/weights/classes.txt"),
+                model_path=os.path.join(ROOT, f"weights/segmentation/{self.model_name}-seg.onnx"),
+                class_txt_path=os.path.join(ROOT, "weights/classes.txt"),
                 confidence_threshold=self.confi_thr,
                 iou_threshold=self.iou_thr)
 
