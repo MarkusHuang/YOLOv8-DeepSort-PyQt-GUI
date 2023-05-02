@@ -175,7 +175,7 @@ class Ui_MainWindow(object):
 "background-color: rgba(200, 200, 200,50);}\n"
 "\n"
 "QComboBox::drop-down {\n"
-"margin-top:4;\n"
+"margin-top:1;\n"
 "height:20;\n"
 "color: rgb(218, 218, 218);\n"
 "background-color: rgba(200, 200, 200,50);\n"
@@ -650,8 +650,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.tableWidget_results.setFont(font)
         self.tableWidget_results.setAutoFillBackground(True)
-        self.tableWidget_results.setStyleSheet("\n"
-"")
+        self.tableWidget_results.setStyleSheet("")
         self.tableWidget_results.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.tableWidget_results.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tableWidget_results.setObjectName("tableWidget_results")
