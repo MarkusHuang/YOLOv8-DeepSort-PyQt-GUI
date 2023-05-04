@@ -36,7 +36,7 @@ border-color: rgb(119, 118, 123);</string>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="9,0">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,11">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,12">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="3,1,2,1,1,1">
           <item>
@@ -60,22 +60,18 @@ border-color: rgb(119, 118, 123);</string>
               <widget class="QRadioButton" name="radioButton_det">
                <property name="font">
                 <font>
-                 <family>Microsoft YaHei</family>
                  <pointsize>-1</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
-                 <underline>false</underline>
-                 <strikeout>false</strikeout>
                 </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">QRadioButton
-{font-size: 18px;
+{font-size: 16px;
 	font-weight: bold;
  		border-radius:9px;
 		background:rgba(66, 195, 255, 0);
 color: rgb(218, 218, 218);;}
-
 QRadioButton::indicator {
 	width: 20px;
 	height: 20px;
@@ -108,17 +104,9 @@ QRadioButton::disabled{
              </item>
              <item>
               <widget class="QRadioButton" name="radioButton_seg">
-               <property name="font">
-                <font>
-                 <family>Microsoft YaHei</family>
-                 <pointsize>-1</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
                <property name="styleSheet">
                 <string notr="true">QRadioButton
-{font-size: 18px;
+{font-size: 16px;
 	font-weight: bold;
  		border-radius:9px;
 		background:rgba(66, 195, 255, 0);
@@ -149,17 +137,9 @@ QRadioButton::disabled{
              </item>
              <item>
               <widget class="QRadioButton" name="radioButton_pose">
-               <property name="font">
-                <font>
-                 <family>Microsoft YaHei</family>
-                 <pointsize>-1</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
                <property name="styleSheet">
                 <string notr="true">QRadioButton
-{font-size: 18px;
+{font-size: 16px;
 	font-weight: bold;
  		border-radius:9px;
 		background:rgba(66, 195, 255, 0);
@@ -217,6 +197,7 @@ border:none;}
 
 QComboBox{
 font-size: 16px;
+
 color: rgb(218, 218, 218);
 border-width:0px;
 border-color:white;
@@ -492,11 +473,11 @@ QSlider::handle:horizontal {
      margin: -7px -7px -7px -7px;                  
 } 
 QSlider::add-page:horizontal{
-background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #d9d9d9, stop:0.25 #d9d9d9, stop:0.5 #d9d9d9, stop:1 #d9d9d9); 
+background: #d9d9d9; 
 
 }
 QSlider::sub-page:horizontal{                               
- background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #373737, stop:0.25 #373737, stop:0.5 #373737, stop:1 #373737);                     
+ background: #373737;                     
 }</string>
                </property>
                <property name="maximum">
@@ -592,11 +573,11 @@ QSlider::handle:horizontal {
      margin: -7px -7px -7px -7px;                  
 } 
 QSlider::add-page:horizontal{
-background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #d9d9d9, stop:0.25 #d9d9d9, stop:0.5 #d9d9d9, stop:1 #d9d9d9); 
+background: #d9d9d9; 
 
 }
 QSlider::sub-page:horizontal{                               
- background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #373737, stop:0.25 #373737, stop:0.5 #373737, stop:1 #373737);                     
+ background: #373737;                     
 }</string>
                </property>
                <property name="value">
@@ -677,11 +658,11 @@ QSlider::handle:horizontal {
      margin: -7px -7px -7px -7px;                  
 } 
 QSlider::add-page:horizontal{
-background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #d9d9d9, stop:1 #d9d9d9, stop:2 #d9d9d9, stop:3 #d9d9d9, stop:4 #d9d9d9, stop:5 #d9d9d9); 
+background: #d9d9d9; 
 
 }
 QSlider::sub-page:horizontal{                               
- background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #373737, stop:0.25 #373737, stop:0.5 #373737, stop:1 #373737);                     
+ background: #373737;                     
 }</string>
                </property>
                <property name="maximum">
