@@ -18,7 +18,7 @@ RUN conda env create -f environment.yml
 SHELL ["conda", "run", "-n", "yolov8_gui", "/bin/bash", "-c"]
 
 RUN apt-get update && apt-get install -y \
-      libgl1\
+      libgl1 libxkbcommon-x11-0\
       && rm -rf /var/lib/apt/lists/* \
       # Demonstrate the environment is activated:
       && echo "Make sure numpy is installed:"\
