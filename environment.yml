@@ -132,4 +132,4 @@ dependencies:
       - mpmath==1.3.0
       - onnxruntime-gpu==1.14.1
       - protobuf==4.22.4
-prefix: /home/jinghuang/anaconda3/envs/yolov8_gui
+prefix: /opt/anaconda3/envs/yolov8_gui
