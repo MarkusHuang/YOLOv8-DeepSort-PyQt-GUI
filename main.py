@@ -7,6 +7,7 @@ from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import sys
 import numpy as np
+import cv2 as cv
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -149,23 +150,26 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.horizontalSlider_interval.setDisabled(False)
     
     def process_camera(self):
-        self.ai_thread.set_start_config(
-            ai_task=self.ai_task,
-            model_name=self.model_name)
+        video_source = self.get_stream_source()
+        print("SOURCE", video_source)
+        if video_source is not None:
+            self.ai_thread.set_start_config(
+                ai_task=self.ai_task,
+                model_name=self.model_name)
         
-        self.camera_thread.set_start_config(video_source=0)
-        self.display_thread.set_start_config([self.label_display.width(),self.label_display.height()])
+            self.camera_thread.set_start_config(video_source=video_source)
+            self.display_thread.set_start_config([self.label_display.width(),self.label_display.height()])
 
-        self.camera_thread.send_frame.connect(self.display_thread.get_fresh_frame)
-        self.camera_thread.send_frame.connect(self.ai_thread.get_frame)
-        self.ai_thread.send_ai_output.connect(self.display_thread.get_ai_output)
-        self.display_thread.send_displayable_frame.connect(self.update_display_frame)
-        self.display_thread.send_ai_output.connect(self.update_statistic_table)
-        self.display_thread.send_thread_start_stop_flag.connect(self.buttons_states)
+            self.camera_thread.send_frame.connect(self.display_thread.get_fresh_frame)
+            self.camera_thread.send_frame.connect(self.ai_thread.get_frame)
+            self.ai_thread.send_ai_output.connect(self.display_thread.get_ai_output)
+            self.display_thread.send_displayable_frame.connect(self.update_display_frame)
+            self.display_thread.send_ai_output.connect(self.update_statistic_table)
+            self.display_thread.send_thread_start_stop_flag.connect(self.buttons_states)
 
-        self.ai_thread.start()
-        self.display_thread.start()
-        self.camera_thread.start()
+            self.ai_thread.start()
+            self.display_thread.start()
+            self.camera_thread.start()
 
         
     def process_file(self):
@@ -215,6 +219,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
                 self.tableWidget_results.setItem(row, j, item)
 
+    def get_stream_source(self):
+        video_source, okPressed = QtWidgets.QInputDialog.getText(self, "Input Camera_ID or RTSP", "Camera ID or RTSP")
+        if okPressed:
+            if video_source.isdigit():
+                return int(video_source)
+            else:
+                return video_source
+        else:
+            return None
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
