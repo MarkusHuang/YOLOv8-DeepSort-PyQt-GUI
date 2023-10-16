@@ -9,15 +9,18 @@ Supported AI tasks:
 - [x] Detection
 - [x] Pose Estimation
 - [x] Segmentation
+
 Supported Models:
 - [x] YOLOv8n
 - [x] YOLOv8s
 - [x] YOLOv8m
 - [x] YOLOv8l
 - [x] YOLOv8x
+
 Supported Trackers:
 - [x] DeepSort
 - [x] ByteTrack
+
 Supported Input Sources:
 - [x] local files: images or videos
 - [x] Camera
