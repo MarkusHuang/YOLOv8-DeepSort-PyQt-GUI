@@ -1,4 +1,4 @@
-# YOLOv8-DeepSort-ByteTrack-PyQt-GUI
+# YOLOv8-DeepSort/ByteTrack-PyQt-GUI
 a GUI application, which uses YOLOv8 for  Object Detection/Tracking, Human Pose Estimation/Tracking from images, videos or camera. 
 
 All python scripts performing detection, pose and segmentation using the YOLOv8 model in ONNX.
