@@ -3,6 +3,7 @@ from src.models.detection.yolov8_detector_onnx import YoloDetector
 from src.models.pose.yolov8_pose_onnx import PoseDetector
 from src.models.segmentation.yolov8_seg_onnx import YOLOSeg
 from src.models.tracking.deep_sort.deep_sort import DeepSort
+from src.models.tracking.byte_track.byte_tracker import BYTETracker
 from src.utils.general import ROOT, add_image_id
 from src.utils.visualize import draw_results
 import os
@@ -22,7 +23,7 @@ class FileProcessThread(QThread):
         self.thread_name = "FileProcessThread"
         self.threadFlag = False
     
-    def set_start_config(self, video_path, ai_task, screen_size, model_name="yolov8n", confidence_threshold=0.35, iou_threshold=0.45, frame_interval=0):
+    def set_start_config(self, video_path, ai_task, screen_size, model_name="yolov8n", tracker_name="deepsort", confidence_threshold=0.35, iou_threshold=0.45, frame_interval=0):
         self.threadFlag = True
         self.video_path = video_path
         self.ai_task = ai_task
@@ -30,6 +31,7 @@ class FileProcessThread(QThread):
         self.confi_thr = confidence_threshold
         self.iou_thr = iou_threshold
         self.model_name = model_name
+        self.tracker_name = tracker_name
         self.frame_interval = frame_interval
         self.get_screen_size(screen_size)
         self._init_yolo()
@@ -43,6 +45,9 @@ class FileProcessThread(QThread):
     
     def set_model_name(self, model_name):
         self.model_name = model_name
+    
+    def set_tracker_name(self, tracker_name):
+        self.tracker_name = tracker_name
     
     def set_frame_interval(self, frame_interval):
         self.frame_interval = frame_interval
@@ -73,8 +78,17 @@ class FileProcessThread(QThread):
                 iou_threshold=self.iou_thr)
 
     def _init_tracker(self):
-        self.tracker = DeepSort(
-            model_path=os.path.join(ROOT, f"src/models/tracking/deep_sort/deep/checkpoint/ckpt.t7"))
+        if self.tracker_name == "deepsort":
+            self.tracker = DeepSort(
+                model_path=os.path.join(ROOT, f"src/models/tracking/deep_sort/deep/checkpoint/ckpt.t7"))
+        elif self.tracker_name == "bytetrack":
+            self.tracker = BYTETracker(
+                track_high_thresh=0.5, 
+                track_low_thresh=0.1,
+                new_track_thresh=0.6,
+                match_thresh=0.8,
+                track_buffer=30,
+                frame_rate=30)
     
     def stop_process(self):
         self.threadFlag = False

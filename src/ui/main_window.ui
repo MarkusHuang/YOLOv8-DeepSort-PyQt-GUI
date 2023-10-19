@@ -38,7 +38,7 @@ border-color: rgb(119, 118, 123);</string>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,12">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="3,1,2,1,1,1">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,1,1,3,1,1,1">
           <item>
            <widget class="QGroupBox" name="groupBox">
             <property name="font">
@@ -243,6 +243,63 @@ color: rgb(0, 0, 0);
                <item>
                 <property name="text">
                  <string>YOLOv8x</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_7">
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Trackers</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QComboBox" name="comboBox_tracker">
+               <property name="styleSheet">
+                <string notr="true">QComboBox QAbstractItemView {
+font-size: 16px;
+outline:none;
+border:none;}
+
+QComboBox{
+font-size: 16px;
+
+color: rgb(218, 218, 218);
+border-width:0px;
+border-color:white;
+border-style:solid;
+background-color: rgba(200, 200, 200,50);}
+
+QComboBox::drop-down {
+margin-top:1;
+height:20;
+color: rgb(218, 218, 218);
+background-color: rgba(200, 200, 200,50);
+border-image: url(:/images/icons/roll_down.png);
+}
+
+QComboBox::disabled{
+color: rgb(0, 0, 0);
+}</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>DeepSort</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ByteTrack</string>
                 </property>
                </item>
               </widget>

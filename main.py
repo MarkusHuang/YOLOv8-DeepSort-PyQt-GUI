@@ -7,6 +7,7 @@ from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import sys
 import numpy as np
+import cv2 as cv
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -23,6 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.frame_interval = 0
         self.model_name = "yolov8n"
         self.ai_task = "object_detection"
+        self.tracker_name = "deepsort"
         
         self.init_slots()
         self.buttons_states("waiting_for_setting")
@@ -38,6 +40,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.horizontalSlider_interval.valueChanged.connect(lambda x: self.update_parameter(x, 'horizontalSlider_interval'))
         self.horizontalSlider_iou.valueChanged.connect(lambda x: self.update_parameter(x, 'horizontalSlider_iou'))
         self.comboBox_model.currentTextChanged.connect(self.choose_model)
+        self.comboBox_tracker.currentTextChanged.connect(self.choose_tracker)
         self.pushButton_cam.clicked.connect(self.process_camera)
         self.pushButton_file.clicked.connect(self.process_file)
         self.pushButton_stop.clicked.connect(self.stop_video)
@@ -94,12 +97,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.model_name = self.comboBox_model.currentText()
         self.model_name = self.model_name.lower()
     
+    def choose_tracker(self):
+        self.tracker_name = self.comboBox_tracker.currentText()
+        self.tracker_name = self.tracker_name.lower()
+    
     def buttons_states(self, work_state):
         if work_state == "waiting_for_setting":
             self.radioButton_det.setDisabled(False)
             self.radioButton_pose.setDisabled(False)
             self.radioButton_seg.setDisabled(False)
             self.comboBox_model.setDisabled(False)
+            self.comboBox_tracker.setDisabled(False)
             self.pushButton_cam.setDisabled(False)
             self.pushButton_file.setDisabled(False)
             self.pushButton_play.setDisabled(True)
@@ -118,6 +126,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.radioButton_pose.setDisabled(True)
             self.radioButton_seg.setDisabled(True)
             self.comboBox_model.setDisabled(True)
+            self.comboBox_tracker.setDisabled(True)
             self.pushButton_cam.setDisabled(True)
             self.pushButton_file.setDisabled(True)
             self.pushButton_play.setDisabled(True)
@@ -135,6 +144,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.radioButton_pose.setDisabled(True)
             self.radioButton_seg.setDisabled(True)
             self.comboBox_model.setDisabled(True)
+            self.comboBox_tracker.setDisabled(True)
             self.pushButton_cam.setDisabled(True)
             self.pushButton_file.setDisabled(True)
             self.pushButton_play.setDisabled(False)
@@ -149,23 +159,27 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.horizontalSlider_interval.setDisabled(False)
     
     def process_camera(self):
-        self.ai_thread.set_start_config(
-            ai_task=self.ai_task,
-            model_name=self.model_name)
+        video_source = self.get_stream_source()
+        print("SOURCE", video_source)
+        if video_source is not None:
+            self.ai_thread.set_start_config(
+                ai_task=self.ai_task,
+                model_name=self.model_name,
+                tracker_name=self.tracker_name)
         
-        self.camera_thread.set_start_config(video_source=0)
-        self.display_thread.set_start_config([self.label_display.width(),self.label_display.height()])
+            self.camera_thread.set_start_config(video_source=video_source)
+            self.display_thread.set_start_config([self.label_display.width(),self.label_display.height()])
 
-        self.camera_thread.send_frame.connect(self.display_thread.get_fresh_frame)
-        self.camera_thread.send_frame.connect(self.ai_thread.get_frame)
-        self.ai_thread.send_ai_output.connect(self.display_thread.get_ai_output)
-        self.display_thread.send_displayable_frame.connect(self.update_display_frame)
-        self.display_thread.send_ai_output.connect(self.update_statistic_table)
-        self.display_thread.send_thread_start_stop_flag.connect(self.buttons_states)
+            self.camera_thread.send_frame.connect(self.display_thread.get_fresh_frame)
+            self.camera_thread.send_frame.connect(self.ai_thread.get_frame)
+            self.ai_thread.send_ai_output.connect(self.display_thread.get_ai_output)
+            self.display_thread.send_displayable_frame.connect(self.update_display_frame)
+            self.display_thread.send_ai_output.connect(self.update_statistic_table)
+            self.display_thread.send_thread_start_stop_flag.connect(self.buttons_states)
 
-        self.ai_thread.start()
-        self.display_thread.start()
-        self.camera_thread.start()
+            self.ai_thread.start()
+            self.display_thread.start()
+            self.camera_thread.start()
 
         
     def process_file(self):
@@ -179,6 +193,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 ai_task=self.ai_task,
                 screen_size=[self.label_display.width(),self.label_display.height()],
                 model_name=self.model_name,
+                tracker_name=self.tracker_name,
                 confidence_threshold=self.conf_thr,
                 iou_threshold=self.iou_thr,
                 frame_interval=self.frame_interval)
@@ -215,6 +230,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
                 self.tableWidget_results.setItem(row, j, item)
 
+    def get_stream_source(self):
+        video_source, okPressed = QtWidgets.QInputDialog.getText(self, "Input Camera_ID or RTSP", "Camera ID or RTSP")
+        if okPressed:
+            if video_source.isdigit():
+                return int(video_source)
+            else:
+                return video_source
+        else:
+            return None
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

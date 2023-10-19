@@ -39,7 +39,7 @@ def draw_results(image, model_results):
         if model_results == []:
             return img_cpy
         height, width, _ = img_cpy.shape
-        if model_results[0]["segmentation"] != []:
+        if model_results[0]["segmentation"].size > 0:
             mask_alpha = 0.5
             for obj in model_results:
                 id = int(obj["id"])
@@ -65,7 +65,7 @@ def draw_results(image, model_results):
             confi = float(obj["confidence"])
             color = PALLETE[id%PALLETE.shape[0]]
             
-            if obj["keypoints"] != []:
+            if obj["keypoints"].size > 0:
                 img_cpy = draw_keypoints(img_cpy, obj["keypoints"], color)
 
             text = '%d-%s'%(id,class_name)
