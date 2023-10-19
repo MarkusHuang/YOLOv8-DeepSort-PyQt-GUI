@@ -43,8 +43,8 @@ class YoloDetector(DetectorBase):
                     'class': class_names[int(det[5])],
                     'confidence': det[4],
                     'bbox': np.rint(det[:4]),
-                    "keypoints":[],
-                    "segmentation":[]}
+                    "keypoints": np.array([]),
+                    "segmentation": np.array([])}
             detection_results.append(obj_dict)
             i += 1
         return detection_results

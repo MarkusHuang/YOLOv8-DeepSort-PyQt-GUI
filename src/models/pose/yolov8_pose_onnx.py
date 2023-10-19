@@ -38,8 +38,8 @@ class PoseDetector(PoseDetectorBase):
                     "class":"person",
                     "confidence":pred[4],
                     "bbox":bbox,
-                    "keypoints":kpt,
-                    "segmentation":[]}
+                    "keypoints":np.array(kpt),
+                    "segmentation":np.array([])}
                 pose_results.append(pose_dict)
         return pose_results
     

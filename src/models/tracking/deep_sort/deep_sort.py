@@ -24,7 +24,8 @@ class DeepSort(object):
         bbox_xyxy = []
         for out in detection_results:
             bbox_xyxy.append(out["bbox"])
-        bbox_xywh = self._xyxy_to_xywh(np.array(bbox_xyxy))
+        bbox_xyxy = np.array(bbox_xyxy)
+        bbox_xywh = self._xyxy_to_xywh(bbox_xyxy)
         features = self._get_features(bbox_xywh, ori_img)
         bbox_tlwh = self._xywh_to_tlwh(bbox_xywh)
         
@@ -51,8 +52,8 @@ class DeepSort(object):
 
     @staticmethod
     def _xywh_to_tlwh(bbox_xywh):
-        if bbox_xywh == []:
-            return []
+        if bbox_xywh.size == 0:
+            return np.array([])
         if isinstance(bbox_xywh, np.ndarray):
             bbox_tlwh = bbox_xywh.copy()
         elif isinstance(bbox_xywh, torch.Tensor):
@@ -63,7 +64,7 @@ class DeepSort(object):
     
     def _xyxy_to_xywh(self, bbox_xyxy):
         if bbox_xyxy.size == 0:
-            return []
+            return np.array([])
         bbox_xywh = bbox_xyxy.copy()
         bbox_xywh[:,2] = bbox_xyxy[:,2]-bbox_xyxy[:,0]
         bbox_xywh[:,3] = bbox_xyxy[:,3]-bbox_xyxy[:,1]
