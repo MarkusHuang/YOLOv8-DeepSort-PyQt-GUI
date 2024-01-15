@@ -136,6 +136,33 @@ class Ui_MainWindow(object):
 "}")
         self.radioButton_pose.setObjectName("radioButton_pose")
         self.verticalLayout_4.addWidget(self.radioButton_pose)
+        self.radioButton_obb = QtWidgets.QRadioButton(self.groupBox)
+        self.radioButton_obb.setStyleSheet("QRadioButton\n"
+"{font-size: 16px;\n"
+"    font-weight: bold;\n"
+"         border-radius:9px;\n"
+"        background:rgba(66, 195, 255, 0);\n"
+"color: rgb(218, 218, 218);;}\n"
+"QRadioButton::indicator {\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}\n"
+"\n"
+"QRadioButton::indicator:unchecked {\n"
+"    image: url(:/images/icons/button-off.png);\n"
+"}\n"
+"\n"
+"QRadioButton::indicator:checked {\n"
+"    \n"
+"    image: url(:/images/icons/button-on.png);\n"
+"}\n"
+"\n"
+"QRadioButton::disabled{\n"
+"    color: rgb(0, 0, 0);\n"
+"}\n"
+"")
+        self.radioButton_obb.setObjectName("radioButton_obb")
+        self.verticalLayout_4.addWidget(self.radioButton_obb)
         self.verticalLayout_2.addWidget(self.groupBox)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         font = QtGui.QFont()
@@ -558,7 +585,7 @@ class Ui_MainWindow(object):
         self.horizontalSlider_interval.setObjectName("horizontalSlider_interval")
         self.horizontalLayout_7.addWidget(self.horizontalSlider_interval)
         self.verticalLayout_2.addWidget(self.groupBox_6)
-        self.verticalLayout_2.setStretch(0, 2)
+        self.verticalLayout_2.setStretch(0, 3)
         self.verticalLayout_2.setStretch(1, 1)
         self.verticalLayout_2.setStretch(2, 1)
         self.verticalLayout_2.setStretch(3, 3)
@@ -749,6 +776,7 @@ class Ui_MainWindow(object):
         self.radioButton_det.setText(_translate("MainWindow", "Detection"))
         self.radioButton_seg.setText(_translate("MainWindow", "Segmentation"))
         self.radioButton_pose.setText(_translate("MainWindow", "Pose Estimation"))
+        self.radioButton_obb.setText(_translate("MainWindow", "Oriented Detection"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Models"))
         self.comboBox_model.setItemText(0, _translate("MainWindow", "YOLOv8n"))
         self.comboBox_model.setItemText(1, _translate("MainWindow", "YOLOv8s"))
@@ -771,13 +799,3 @@ class Ui_MainWindow(object):
         item = self.tableWidget_results.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "BBox"))
 from src.ui import apprcc_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
